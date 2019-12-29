@@ -1,0 +1,9 @@
+sudo: required #sudo privilages are required to build
+services: 
+    - docker #tells travis We need a copy of docker, and it installs it.
+
+before_install:
+    - docker build -t elisarafian/docker-react -f Dockerfile.dev . #builds the docker image using the .dev file, also , tags the image.
+
+script: #contains the commands needed to execute the test suite.
+    -  - docker run -e CI=true elisarafian/docker-react npm run test
